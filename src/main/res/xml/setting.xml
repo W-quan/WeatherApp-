@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:key="setting"
+    android:title="设置" >    
+    <PreferenceCategory 
+        android:key="basic"
+        android:title="用户" >
+        <EditTextPreference  
+            android:key="nickName"  
+            android:title="昵称"  
+            android:defaultValue="未登录"
+            android:selectable="false"
+            />  
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:key="city"
+        android:title="城市" >
+        
+        <EditTextPreference
+            android:key="province"
+            android:title="省份"
+            android:defaultValue="广东"
+            />
+        <EditTextPreference 
+            android:key="city"
+            android:title="城市"
+            android:defaultValue="广州"
+            />
+    </PreferenceCategory>
+    
+</PreferenceScreen>
