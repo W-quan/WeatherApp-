@@ -64,9 +64,6 @@ public class TodayChartView extends View{
 		paintC.setStrokeWidth(6);
 		paintC.setColor(0xee3333CC);
 		paintC.setTextSize(30);
-		
-
-		System.out.println("gouzhao");
 	}
 
 	@Override
@@ -75,14 +72,9 @@ public class TodayChartView extends View{
 
 		viewWidth = measureSize(widthMeasureSpec);
 		viewHight = measureSize(heightMeasureSpec);
-		System.out.println(viewWidth);
-		System.out.println(viewHight);
 
 		Xstartx = viewWidth / 10; Xstopx = viewWidth * 9/10; Xy = viewHight *9/10;
 		Ystarty = viewHight / 10; Ystopy = Xy; Yx = Xstartx;
-
-//		Xlen = Xstopx - Xstartx;
-//		Ylen = Ystopy - Ystarty;
 
 		Xlen = viewWidth *4/5;
 		Ylen = viewHight *4/5;
@@ -153,7 +145,8 @@ public class TodayChartView extends View{
 			canvas.drawLine(Xstartx + Xlen/10 * (i+1), (float) (Xy - (tempMin[i]/ 50.0 * Ylen)),
 					Xstartx + Xlen/10 * (i+2), (float) (Xy - (tempMin[i + 1]/ 50.0 * Ylen)), paintC);
 		}
-		
+
+		//把一条直线分成5段来画，每次直线长度增加1/5，已达到动态效果
 		float xstart = Xstartx + Xlen/10 * (j+1);
 		float xstop = Xstartx + Xlen/10 * (j+2);
 		float ystart1 = (float) (Xy - (tempMax[j]/ 50.0 * Ylen));
