@@ -19,6 +19,7 @@ public class GetImgIdByWeather {
 				break;
 			case "阵雨":
 				drawableID = R.drawable.xiaoyu;
+				break;
 			case "雷阵雨转阵雨" :
 				drawableID = R.drawable.leizhenyu;
 				break;
@@ -66,6 +67,9 @@ public class GetImgIdByWeather {
 				break;
 			case "多云转晴":
 				drawableID = R.drawable.duoyun;
+				break;
+			case "中到大雨转雷阵雨":
+				drawableID = R.drawable.dayu;
 				break;
 			default:
 				break;

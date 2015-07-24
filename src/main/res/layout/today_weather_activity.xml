@@ -17,7 +17,7 @@
         android:textSize="25sp"
         />
     
-    <com.weatherandroid.view.TodayChartView
+    <com.wzq.myapplication.view.TodayChartView
         android:id="@+id/today_chart_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
