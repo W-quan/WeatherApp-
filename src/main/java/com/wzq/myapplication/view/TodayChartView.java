@@ -10,14 +10,15 @@ import com.wzq.myapplication.activity.UpdatedActivity;
 import com.wzq.myapplication.bean.WeatherFromLib360;
 
 public class TodayChartView extends View{
-	private WeatherFromLib360 weatherFromLib360;
 	private Paint paintA;
 	private Paint paintB;
 	private Paint paintC;
-	
+
+	private int viewWidth;
+	private int viewHight;
+
 	private float Xstartx, Xstopx, Xy;
 	private float Yx, Ystarty, Ystopy;
-	private float sl = 20;
 	private float Xlen, Ylen;
 	
 	private float[] tempMax;
@@ -34,8 +35,8 @@ public class TodayChartView extends View{
 	}
 	public TodayChartView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		
-		weatherFromLib360 = UpdatedActivity.weatherFromLib360;
+
+		WeatherFromLib360 weatherFromLib360 = UpdatedActivity.weatherFromLib360;
 		
 		tempMax = new float[8];
 		tempMin = new float[8];
@@ -56,7 +57,7 @@ public class TodayChartView extends View{
 		paintB.setAntiAlias(false);
 		paintB.setStrokeWidth(6);
 		paintB.setColor(0xeeFF9900);
-		paintB.setTextSize(30);;
+		paintB.setTextSize(30);
 		
 		paintC = new Paint();
 		paintC.setAntiAlias(true);
@@ -64,17 +65,51 @@ public class TodayChartView extends View{
 		paintC.setColor(0xee3333CC);
 		paintC.setTextSize(30);
 		
-		Xstartx = 60; Xstopx = 700; Xy = 800;
-		Ystarty = 150; Ystopy = 800; Yx = 60;
-		
-		Xlen = Xstopx - Xstartx;
-		Ylen = Ystopy - Ystarty;
+
+		System.out.println("gouzhao");
 	}
-	
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+		viewWidth = measureSize(widthMeasureSpec);
+		viewHight = measureSize(heightMeasureSpec);
+		System.out.println(viewWidth);
+		System.out.println(viewHight);
+
+		Xstartx = viewWidth / 10; Xstopx = viewWidth * 9/10; Xy = viewHight *9/10;
+		Ystarty = viewHight / 10; Ystopy = Xy; Yx = Xstartx;
+
+//		Xlen = Xstopx - Xstartx;
+//		Ylen = Ystopy - Ystarty;
+
+		Xlen = viewWidth *4/5;
+		Ylen = viewHight *4/5;
+	}
+
+	private int measureSize(int measureSpec) {
+		int specMode = MeasureSpec.getMode(measureSpec);
+		int specSize = MeasureSpec.getSize(measureSpec);
+
+		// Default size if no limits are specified.
+		int result = 500;
+		if (specMode == MeasureSpec.AT_MOST) {
+			// Calculate the ideal size of your control within this maximum size.
+			// If your control fills the available space return the outer bound.
+			result = specSize;
+		} else if (specMode == MeasureSpec.EXACTLY) {
+			// If your control can fit within these bounds return that value.
+			result = specSize;
+		}
+		return result;
+	}
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		
+
+		System.out.println("ondraw");
 		//画坐标系
 		//X、Y轴
 		canvas.drawLine(Yx, Ystarty, Yx, Ystopy, paintA);
@@ -86,6 +121,7 @@ public class TodayChartView extends View{
 		canvas.drawText("Min", Xstartx + Xlen/10 *9 + 5, Ystarty + 50, paintC);
 		
 		//Y轴上的单位线
+		float sl = 20;
 		for(int i = 0; i < 10; i++){
 			canvas.drawLine(Yx, Ystarty + Ylen/10 *i, Yx + sl, Ystarty + Ylen/10 * i, paintA);
 		}
